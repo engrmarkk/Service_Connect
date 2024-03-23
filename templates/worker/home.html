@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<style>
+    input[type="text"]:focus {
+        outline: none;
+    }
+
+    .search-button {
+        background-color: #0d6efd;
+        transition: background-color 0.6s ease-in-out;
+        width: 10rem;
+    }
+
+    .search-button:hover {
+        background-color: rgb(55, 57, 111);
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="" id="hero">
+        <div id="hero2" class="">
+            <form action="" method="post" class="row g-0 justify-content-center align-items-center container m-auto">
+                <div class="col-auto col-lg-6">
+                    <input type="text" name="search" class="form-control py-3 shadow-none border"
+                        placeholder="What are you looking for?" required>
+                </div>
+                <div class="col-auto col-lg-3">
+                    <button type="submit" class="btn search-button text-white py-3">
+                        <i class="fas fa-search me-2"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="overlay"></div>
+        <!-- <div class="row gy-2 mt-3">
+            {% for serv in services %}
+            <div class="col-3 col-md-3 col-lg-2" id="neur">
+                <a class="card py-2 text-decoration-none" href="">
+                    <img src="https://res.cloudinary.com/duwyopabr/image/upload/v1676162283/user_xz7o0f.png" alt=""
+                        style="width: 3rem;" class="mx-auto d-block">
+                    <span class="text-center mt-2" style="font-size: .8rem;">{{ serv.name }}</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div> -->
+    </div>
+
+    <div class="container">
+        <div class="row gy-2">
+
+            <ul class="mt-3 col-lg-3 card p-3" id="myserv">
+                {% for serv in services %}
+                <!-- <li class="" id="neur" style="list-style: none;"> -->
+                    <a class="text-decoration-none text-dark" href="" id="neur">
+                        <img src="https://res.cloudinary.com/duwyopabr/image/upload/v1676162283/user_xz7o0f.png" alt=""
+                            style="width: 1rem;" class="">
+                        <span class="text-center mt-2 ms-2" style="font-size: 1rem;">{{ serv.name.upper() }}</span>
+                    </a>
+                <!-- </li> -->
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    <style>
+
+        #neur{
+            padding: .3rem;
+        }
+
+        #neur:hover{
+            background:  #0d6efd;
+            color: white !important;
+            transition: .7s ease-in-out;
+            padding: .8rem;
+        }
+
+        #neur a:hover{
+            color: white !important;
+        }
+
+        #neur a{
+            font-size: 1.2rem;
+            font-weight: normal;
+            width: 100% !important;
+        }
+
+        #hero{
+            background: url(../static/images/serv1.jpg);
+            height: 70vh;
+            position: relative;
+            background-position: center;
+            background-size: cover;
+        }
+
+        form{
+            z-index: 999;
+        }
+
+        #hero2{
+            margin: auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #overlay{
+            position: absolute;
+            height: 70vh;
+            width: 100%;
+            top: 0;
+            background: rgba(0, 0, 0, 0.529);
+        }
+
+        #myserv{
+            height: 35rem;
+            overflow-y: auto;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+        }
+
+        /* #location{
+            margin-top: 5rem;
+        } */
+    </style>
+
+    {% endblock %}
