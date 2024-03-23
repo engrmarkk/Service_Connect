@@ -102,22 +102,22 @@
               <a href="{{url_for('user.home')}}" class="nav-link {%if home%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
                 HOME</a>
             </li>
-            <li class="nav-item _box px-2 {%if admin%} bg-primary {%endif%}">
-              <a href="" class="nav-link  {%if admin%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
+            <li class="nav-item _box px-2 {%if about%} bg-primary {%endif%}">
+              <a href="" class="nav-link  {%if about%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
                 <!-- <button  type="button" class="btn" > -->
                 ABOUT
             <!-- </button> -->
             </a>
             </li>
-            <li class="nav-item _box px-2 {%if create_admin%} bg-primary {%endif%}">
-              <a href="" class="nav-link  {%if create_admin%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
+            <li class="nav-item _box px-2 {%if contact%} bg-primary {%endif%}">
+              <a href="" class="nav-link  {%if contact%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
                 <!-- <button  type="button" class="btn" > -->
                 CONTACT
             <!-- </button> -->
             </a>
             </li>
-            <li class="nav-item _box px-2 {%if post_active%} bg-primary {%endif%}">
-              <a href="" class="nav-link  {%if post_active%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
+            <li class="nav-item _box px-2 {%if login%} bg-primary {%endif%}">
+              <a href="{{url_for('auth.login')}}" class="nav-link  {%if login%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
                 <!-- <button  type="button" class="btn" > -->
                 LOGIN
             <!-- </button> -->
