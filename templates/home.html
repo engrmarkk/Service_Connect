@@ -152,7 +152,7 @@
             </ul>
             <div class="col-lg-9" id="myserv2"> <!-- Updated column size to take up the remaining space -->
                 <div class="row g-1">
-                    {% for serv in services[:12] %}
+                    {% for serv in services %}
                     <div class="col-lg-4">
                         <div class="card">
                             <img src="{{ url_for('static', filename='images/man.avif' )}}" alt="" class="img-fluid">
