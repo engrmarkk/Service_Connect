@@ -15,7 +15,7 @@
 
                         <div class="col-md-12">
                             <img src="https://res.cloudinary.com/duwyopabr/image/upload/v1676162283/user_xz7o0f.png" alt=""
-                        style="width: 3rem; cursor: pointer;" class="mx-auto d-block" id="pp">
+                        style="width: 3rem; cursor: pointer;" class="mx-auto d-block rounded-circle img-thumbnail" id="pp">
                            <input class="form-control shadow-none border" id="username_input" type="text" name="username" placeholder="Username" required value="{% if email %}{{email}}{% endif %}">
                            <input class="form-control shadow-none border" id="email_input" type="email" name="email" placeholder="Email" required value="{% if password %}{{password}}{% endif %}">
                            <input class="form-control shadow-none border d-none" id="photo_input" type="file" name="profile_picture" required>
@@ -36,6 +36,9 @@
                             <button class="btn btn-primary p-2 fw-normal" id="login_btn" type="submit" disabled>
                                 Register
                             </button>
+                        </div>
+                        <div class="text-muted mt-3" style="font-size: .85rem;">
+                            Already have an account? <a class="text-decoration-none" href="{{ url_for('auth.login') }}">Login</a>
                         </div>
                     </form>
                 </div>
@@ -132,6 +135,16 @@ html, body {
 
     pp.addEventListener('click', function () {
         photo_input.click();
+    })
+
+    photo_input.addEventListener('change', function () {
+        if (photo_input.files && photo_input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                pp.setAttribute('src', e.target.result);
+            }
+            reader.readAsDataURL(photo_input.files[0]);
+        }
     })
 
 
