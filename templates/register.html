@@ -17,19 +17,19 @@
                             <img src="https://res.cloudinary.com/duwyopabr/image/upload/v1676162283/user_xz7o0f.png" alt=""
                         style="width: 3rem; cursor: pointer;" class="mx-auto d-block rounded-circle img-thumbnail" id="pp">
                            <input class="form-control shadow-none border" id="username_input" type="text" name="username" placeholder="Username" required value="{% if email %}{{email}}{% endif %}">
-                           <input class="form-control shadow-none border" id="email_input" type="email" name="email" placeholder="Email" required value="{% if password %}{{password}}{% endif %}">
+                           <input class="form-control shadow-none border" id="email_input" type="email" name="email" placeholder="Email" required value="{% if email %}{{email}}{% endif %}">
                            <input class="form-control shadow-none border d-none" id="photo_input" type="file" name="profile_picture" required>
-                           <input class="form-control shadow-none border" id="phone_input" type="tel" name="phone_number" placeholder="Phone" required value="{% if password %}{{password}}{% endif %}">
-                           <input class="form-control shadow-none border" id="country_input" type="text" name="country" placeholder="Country" required value="{% if password %}{{password}}{% endif %}">
-                           <input class="form-control shadow-none border" id="state_input" type="text" name="state" placeholder="State" required value="{% if password %}{{password}}{% endif %}">
-                           <input class="form-control shadow-none border" id="lga_input" type="text" name="local_government" placeholder="Local Govt" required value="{% if password %}{{password}}{% endif %}">
+                           <input class="form-control shadow-none border" id="phone_input" type="tel" name="phone_number" placeholder="Phone" required value="{% if phone_number %}{{phone_number}}{% endif %}">
+                           <input class="form-control shadow-none border" id="country_input" type="text" name="country" placeholder="Country" required value="{% if country %}{{country}}{% endif %}">
+                           <input class="form-control shadow-none border" id="state_input" type="text" name="state" placeholder="State" required value="{% if state %}{{state}}{% endif %}">
+                           <input class="form-control shadow-none border" id="lga_input" type="text" name="local_government" placeholder="Local Govt" required value="{% if lga %}{{lga}}{% endif %}">
                            <select name="" id="" class="form-control shadow-none border">
                                <option disabled selected>Choose One</option>
                                <option value="user">Need a service</option>
                                <option value="worker">Render a service</option>
                            </select>
                            <input class="form-control shadow-none border" id="password_input" type="password" name="password" placeholder="Password" required value="{% if password %}{{password}}{% endif %}">
-                           <input class="form-control shadow-none border" id="confirm_password_input" type="password" name="confirm_password" placeholder="Confirm Password" required value="{% if password %}{{password}}{% endif %}">
+                           <input class="form-control shadow-none border" id="confirm_password_input" type="password" name="confirm_password" placeholder="Confirm Password" required value="{% if confirm_password %}{{confirm_password}}{% endif %}">
                         </div>
 
                         <div class="form-button mt-3">
