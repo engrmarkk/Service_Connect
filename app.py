@@ -28,6 +28,9 @@ def create_app():
     app.config["MAIL_USE_TLS"] = False
     app.config["MAIL_USE_SSL"] = True
 
+    # print(os.getenv("EMAIL_USER"), "eemail user", type(os.getenv("EMAIL_USER")))
+    # print(os.getenv("EMAIL_PASS"), "eemail pass", type(os.getenv("EMAIL_PASS")))
+
     db.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
