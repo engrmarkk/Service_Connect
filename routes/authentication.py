@@ -170,6 +170,8 @@ def register():
 @auth.route("/verify-otp/<string:email>", methods=["GET", "POST"])
 # @login_required
 def verify_otp(email):
+    if current_user.is_authenticated:
+        return redirect(url_for("user.home"))
     alert = session.get("alert")
     bg_color = session.get("bg_color")
     user = return_user(email)
@@ -177,6 +179,10 @@ def verify_otp(email):
         session["alert"] = "User does not exist"
         session["bg_color"] = "danger"
         return redirect(url_for("user.home"))
+    if user.otp_verified:
+        session["alert"] = "Already verified, login now"
+        session["bg_color"] = "success"
+        return redirect(url_for("auth.login"))
     if request.method == "POST":
         otp = request.form.get("otp")
         print(otp)
@@ -204,10 +210,15 @@ def verify_otp(email):
 # resend otp
 @auth.route("/resend-otp/<string:email>", methods=["GET"])
 def resend_otp(email):
+    if current_user.is_authenticated:
+        return redirect(url_for("user.home"))
     user = return_user(email)
     if not user:
         flash("User does not exist", "danger")
         return redirect(url_for("user.home"))
+    if user.otp_verified:
+        flash("Already verified, login now", "success")
+        return redirect(url_for("auth.login"))
     otp = generate_otp()
     user.otp = otp
     db.session.commit()
