@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container" id="list_admins" style="display: flex; justify-content: space-between; align-items: center; width: 40rem; margin-top: 7rem">
+</div>
+<div class="form-body">
+    <div class="row">
+        <div class="form-holder mx-auto border" style="border: 2px solid rgb(122, 123, 126); border-radius: 16px; padding: 50px; width: 40rem; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+            <div class="form-content">
+                <div class="form-items">
+                    <h3 class="text-primary">Verify your email</h3>
+                    <p class="text-muted">Fill in the data below.</p>
+                    <form class="requires-validation" action="" method="post">
+
+                        <div class="col-md-12">
+                           <input class="form-control shadow-none border" id="otp_input" type="text" name="otp" placeholder="OTP" required value="{% if otp %}{{otp}}{% endif %}">
+                        </div>
+
+                        <div class="form-button mt-3">
+                            <button class="btn btn-primary p-2 fw-normal" id="login_btn" type="submit">
+                                Verify
+                            </button>
+                        </div>
+                        <div class="text-muted mt-3" style="font-size: .8rem;">
+                            <a href="{{ url_for('auth.resend-otp', email=email) }}" class="text-decoration-none">Resend Otp</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+*, body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    /* height: 100%; */
+    /* background-color: #152733; */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+    width: 100%;
+    padding: 9px 20px;
+    text-align: left;
+    border: 1px solid rgb(142, 131, 131);
+    outline: 0;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    color: #8D8D8D;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px !important;
+}
+
+/* media query */
+@media screen and (max-width: 768px) {
+    .form-holder, #list_admins{
+        width: 85% !important;
+    }
+}
+
+</style>
+
+<script>
+
+    var email = document.getElementById('email_input');
+    var password = document.getElementById('password_input');
+
+    var login_btn = document.getElementById('login_btn');
+
+    updateLoginButton();
+
+    // Add event listeners for input fields
+    email.addEventListener('input', updateLoginButton);
+    password.addEventListener('input', updateLoginButton);
+
+    console.log(password.value.trim().length, "length")
+
+    function updateLoginButton() {
+        // Enable/disable login button based on input length
+        if (password.value.trim().length >= 4) {
+            login_btn.removeAttribute('disabled');
+        } else {
+            login_btn.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    login_btn.addEventListener('click', function () {
+        // Replace button text with spinner when clicked
+        if (!login_btn.hasAttribute('disabled')) {
+            login_btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            login_btn.classList.add('px-3');
+            // disabled the btn
+            setTimeout(function () {
+                login_btn.setAttribute('disabled', 'disabled');
+            }, 100)
+        }
+    });
+
+
+</script>
+
+
+{% endblock content %}
