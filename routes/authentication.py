@@ -5,7 +5,7 @@ from helpers import (validate_input, check_username_exist,
 from passlib.hash import pbkdf2_sha256 as sha256
 from flask_login import login_user, logout_user, logout_user, login_required
 from flask_mail import Message
-from extensions import mail
+from extensions import mail, db
 import cloudinary
 import os
 import cloudinary.uploader
@@ -155,7 +155,8 @@ def register():
                 return render_template(
                     "register.html", date=datetime.utcnow()
                 )
-            return redirect(url_for("auth.verify_otp"))
+            print("Email sent")
+            return redirect(url_for("auth.verify_otp", email=email))
         else:
             return render_template("register.html", alert="Something went wrong",
                                    bg_color="danger", username=username,
@@ -167,7 +168,7 @@ def register():
 
 
 @auth.route("/verify-otp/<string:email>", methods=["GET", "POST"])
-@login_required
+# @login_required
 def verify_otp(email):
     alert = session.get("alert")
     bg_color = session.get("bg_color")
@@ -188,9 +189,11 @@ def verify_otp(email):
             bg_color = "danger"
             return render_template("verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email)
         if otp == user.otp:
-            session["alert"] = "Verification successful"
+            session["alert"] = "Verification successful, login now"
             session["bg_color"] = "success"
-            return redirect(url_for("user.home"))
+            user.otp_verified = True
+            db.session.commit()
+            return redirect(url_for("auth.login"))
         else:
             alert = "Incorrect OTP"
             bg_color = "danger"
