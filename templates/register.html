@@ -11,19 +11,19 @@
                 <div class="form-items">
                     <h5 class="text-primary text-center mb-3">Create an account</h5>
                     <!-- <p class="text-muted">Fill in the data below.</p> -->
-                    <form class="requires-validation" action="" method="post">
+                    <form class="requires-validation" action="" method="post" enctype="multipart/form-data">
 
                         <div class="col-md-12">
                             <img src="https://res.cloudinary.com/duwyopabr/image/upload/v1676162283/user_xz7o0f.png" alt=""
                         style="width: 3rem; cursor: pointer;" class="mx-auto d-block rounded-circle img-thumbnail" id="pp">
-                           <input class="form-control shadow-none border" id="username_input" type="text" name="username" placeholder="Username" required value="{% if email %}{{email}}{% endif %}">
+                           <input class="form-control shadow-none border" id="username_input" type="text" name="username" placeholder="Username" required value="{% if username %}{{username}}{% endif %}">
                            <input class="form-control shadow-none border" id="email_input" type="email" name="email" placeholder="Email" required value="{% if email %}{{email}}{% endif %}">
-                           <input class="form-control shadow-none border d-none" id="photo_input" type="file" name="profile_picture" required>
-                           <input class="form-control shadow-none border" id="phone_input" type="tel" name="phone_number" placeholder="Phone" required value="{% if phone_number %}{{phone_number}}{% endif %}">
+                           <input class="form-control shadow-none border d-none" id="photo_input" type="file" name="profile_picture" required {% if pp %}value="{{ pp.filename }}"{% endif %}>
+                           <input class="form-control shadow-none border" id="phone_input" type="tel" name="phone_number" placeholder="Phone" required value="{% if phone %}{{phone}}{% endif %}">
                            <input class="form-control shadow-none border" id="country_input" type="text" name="country" placeholder="Country" required value="{% if country %}{{country}}{% endif %}">
                            <input class="form-control shadow-none border" id="state_input" type="text" name="state" placeholder="State" required value="{% if state %}{{state}}{% endif %}">
                            <input class="form-control shadow-none border" id="lga_input" type="text" name="local_government" placeholder="Local Govt" required value="{% if lga %}{{lga}}{% endif %}">
-                           <select name="" id="" class="form-control shadow-none border">
+                           <select id="" class="form-control shadow-none border" name="user_type">
                                <option disabled selected>Choose One</option>
                                <option value="user">Need a service</option>
                                <option value="worker">Render a service</option>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="form-button mt-3">
-                            <button class="btn btn-primary p-2 fw-normal" id="login_btn" type="submit" disabled>
+                            <button class="btn btn-primary p-2 fw-normal" id="login_btn" type="submit">
                                 Register
                             </button>
                         </div>
@@ -104,33 +104,41 @@ html, body {
 
     var login_btn = document.getElementById('login_btn');
 
-    updateLoginButton();
+    // updateLoginButton();
 
     // Add event listeners for input fields
-    email.addEventListener('input', updateLoginButton);
-    password.addEventListener('input', updateLoginButton);
+    // email.addEventListener('input', updateLoginButton);
+    // password.addEventListener('input', updateLoginButton);
 
     console.log(password.value.trim().length, "length")
 
-    function updateLoginButton() {
-        // Enable/disable login button based on input length
-        if (password.value.trim().length >= 4) {
-            login_btn.removeAttribute('disabled');
-        } else {
-            login_btn.setAttribute('disabled', 'disabled');
-        }
-    }
+    // function updateLoginButton() {
+    //     // Enable/disable login button based on input length
+    //     if (password.value.trim().length >= 4) {
+    //         login_btn.removeAttribute('disabled');
+    //     } else {
+    //         login_btn.setAttribute('disabled', 'disabled');
+    //     }
+    // }
 
     login_btn.addEventListener('click', function () {
         // Replace button text with spinner when clicked
         if (!login_btn.hasAttribute('disabled')) {
             login_btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
             login_btn.classList.add('px-3');
-            // disabled the btn
             setTimeout(function () {
+            // disabled the btn
                 login_btn.setAttribute('disabled', 'disabled');
-            }, 100)
+            }, 1000)
         }
+
+        setTimeout(function () {
+            // Remove spinner
+            login_btn.innerHTML = 'Login';
+            login_btn.classList.remove('px-3');
+            // Enable the button
+            login_btn.removeAttribute('disabled');
+        }, 4000); // 4 seconds delay
     });
 
     pp.addEventListener('click', function () {
