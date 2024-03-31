@@ -4,6 +4,13 @@ from helpers import (validate_input, check_username_exist,
                      generate_otp)
 from passlib.hash import pbkdf2_sha256 as sha256
 from flask_login import login_user, logout_user, logout_user, login_required
+from flask_mail import Message
+from extensions import mail
+import cloudinary
+import os
+import cloudinary.uploader
+import cloudinary_config
+from datetime import datetime
 
 auth = Blueprint("auth", __name__)
 
@@ -69,12 +76,17 @@ def register():
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
-        profile_picture = request.form.get("profile_picture")
-        phone = request.form.get("phone")
+        confirm_password = request.form.get("confirm_password")
+        profile_picture = request.files.get("profile_picture")
+        phone = request.form.get("phone_number")
         country = request.form.get("country")
         state = request.form.get("state")
         local_government = request.form.get("local_government")
         user_type = request.form.get("user_type")
+
+        print("username: ", username, "email: ", email, "password: ", password, "profile_picture: ", profile_picture,
+              "phone: ", phone, "country: ", country, "state: ", state,
+              "local_government: ", local_government, "user_type: ", user_type)
 
         alert = validate_input(username, email, password,
                                profile_picture, phone, country,
@@ -82,7 +94,7 @@ def register():
         if alert:
             return render_template("register.html", alert=alert,
                                    bg_color="danger", username=username,
-                                   email=email, password=password, profile_picture=profile_picture,
+                                   email=email, password=password, pp=profile_picture,
                                    phone=phone, country=country, state=state, local_government=local_government,
                                    user_type=user_type)
 
@@ -105,18 +117,44 @@ def register():
                                    phone=phone, country=country, state=state, local_government=local_government,
                                    user_type=user_type)
 
+        if password != confirm_password:
+            return render_template("register.html", alert="Passwords do not match",
+                                   bg_color="danger", username=username,
+                                   email=email, password=password, pp=profile_picture,
+                                   phone=phone, country=country, state=state, local_government=local_government,
+                                   user_type=user_type)
+
+        result = cloudinary.uploader.upload(profile_picture, folder="service_connect", transformation=[
+            {"width": 176, "height": 176, "crop": "fill"}
+        ])
+        image_url = result["secure_url"]
+
         hashed_password = sha256.hash(password)
 
         otp = generate_otp()
 
-        user = create_user(username, email, hashed_password, profile_picture,
+        user = create_user(username, email, hashed_password, image_url,
                            phone, country, state, local_government,
                            is_worker, otp)
 
         if user:
             session["alert"] = "Pls Verify your email."
             session["bg_color"] = "info"
-            login_user(user)
+            # login_user(user)
+            try:
+                msg = Message(
+                    subject="Email Verification",
+                    sender="EasyTransact <easytransact.send@gmail.com>",
+                    recipients=[email],
+                )
+                msg.html = render_template("email_verification.html", otp=str(otp))
+                mail.send(msg)
+            except Exception as e:
+                print(e)
+                flash("failed to verify email", "danger")
+                return render_template(
+                    "register.html", date=datetime.utcnow()
+                )
             return redirect(url_for("auth.verify_otp"))
         else:
             return render_template("register.html", alert="Something went wrong",
@@ -128,7 +166,57 @@ def register():
     return render_template("register.html")
 
 
-@auth.route("/verify-otp", methods=["GET", "POST"])
+@auth.route("/verify-otp/<string:email>", methods=["GET", "POST"])
 @login_required
-def verify_otp():
-    return render_template("verify_otp.html")
+def verify_otp(email):
+    alert = session.get("alert")
+    bg_color = session.get("bg_color")
+    user = return_user(email)
+    if not user:
+        session["alert"] = "User does not exist"
+        session["bg_color"] = "danger"
+        return redirect(url_for("user.home"))
+    if request.method == "POST":
+        otp = request.form.get("otp")
+        print(otp)
+        if not otp:
+            alert = "Please enter OTP"
+            bg_color = "danger"
+            return render_template("verify_otp.html", alert=alert, bg_color=bg_color, email=email)
+        if len(otp) != 6 or not otp.isdigit():
+            alert = "Please enter a valid OTP"
+            bg_color = "danger"
+            return render_template("verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email)
+        if otp == user.otp:
+            session["alert"] = "Verification successful"
+            session["bg_color"] = "success"
+            return redirect(url_for("user.home"))
+        else:
+            alert = "Incorrect OTP"
+            bg_color = "danger"
+            return render_template("verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email)
+    return render_template("verify_otp.html", alert=alert, bg_color=bg_color, email=email)
+
+
+# resend otp
+@auth.route("/resend-otp/<string:email>", methods=["GET"])
+def resend_otp(email):
+    user = return_user(email)
+    if not user:
+        flash("User does not exist", "danger")
+        return redirect(url_for("user.home"))
+    otp = generate_otp()
+    user.otp = otp
+    db.session.commit()
+    try:
+        msg = Message(
+            subject="Email Verification",
+            sender="EasyTransact <easytransact.send@gmail.com>",
+            recipients=[email],
+        )
+        msg.html = render_template("email_verification.html", otp=str(otp))
+        mail.send(msg)
+    except Exception as e:
+        print(e)
+        flash("failed to verify email", "danger")
+    return redirect(url_for("auth.verify_otp", email=email))
