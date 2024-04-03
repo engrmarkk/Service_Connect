@@ -3,7 +3,7 @@ from helpers import (validate_input, check_username_exist,
                      check_email_exist, create_user, return_user,
                      generate_otp)
 from passlib.hash import pbkdf2_sha256 as sha256
-from flask_login import login_user, logout_user, logout_user, login_required
+from flask_login import login_user, logout_user, logout_user, login_required, current_user
 from flask_mail import Message
 from extensions import mail, db
 import cloudinary
@@ -214,10 +214,12 @@ def resend_otp(email):
         return redirect(url_for("user.home"))
     user = return_user(email)
     if not user:
-        flash("User does not exist", "danger")
+        session["alert"] = "User does not exist"
+        session["bg_color"] = "danger"
         return redirect(url_for("user.home"))
     if user.otp_verified:
-        flash("Already verified, login now", "success")
+        session["alert"] = "Already verified, login now"
+        session["bg_color"] = "success"
         return redirect(url_for("auth.login"))
     otp = generate_otp()
     user.otp = otp
@@ -230,7 +232,10 @@ def resend_otp(email):
         )
         msg.html = render_template("email_verification.html", otp=str(otp))
         mail.send(msg)
+        session["alert"] = "OTP re-sent"
+        session["bg_color"] = "success"
     except Exception as e:
         print(e)
-        flash("failed to verify email", "danger")
+        session["alert"] = "failed to verify email"
+        session["bg_color"] = "danger"
     return redirect(url_for("auth.verify_otp", email=email))
