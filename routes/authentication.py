@@ -225,7 +225,7 @@ def resend_otp(email):
     try:
         msg = Message(
             subject="Email Verification",
-            sender="EasyTransact <easytransact.send@gmail.com>",
+            sender="Service Connect <easytransact.send@gmail.com>",
             recipients=[email],
         )
         msg.html = render_template("email_verification.html", otp=str(otp))
