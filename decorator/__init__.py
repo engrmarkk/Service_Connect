@@ -1,4 +1,5 @@
 from functools import wraps
+from flask_login import current_user
 
 
 def worker_required(f):
