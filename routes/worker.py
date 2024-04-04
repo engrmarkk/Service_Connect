@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, logout_user, login_required
 from models import WorkerProfile
-from decorators import worker_required
+from decorator import worker_required
 
 worker = Blueprint("worker", __name__)
 
