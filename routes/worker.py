@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, logout_user, login_required, current_user
-from models import WorkerProfile
+from models import WorkerProfile, get_services
 from decorator import worker_required
 
 worker = Blueprint("worker", __name__)
@@ -19,6 +19,7 @@ def home():
 def update_profile():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
+    servs = get_services()
     if request.method == "POST":
         company = request.form.get("company")
         description = request.form.get("description")
@@ -101,4 +102,4 @@ def update_profile():
             session["bg_color"] = "danger"
         return redirect(url_for("worker.home"))
 
-    return render_template("worker/update_profile.html", alert=alert, bg_color=bg_color)
+    return render_template("worker/update_profile.html", alert=alert, bg_color=bg_color, servs=servs)
