@@ -20,6 +20,7 @@
                            <input class="form-control shadow-none border" id="email_input" type="email" name="email" placeholder="Email" required value="{{current_user.email}}" disabled>
                            <input class="form-control shadow-none border" id="phone_input" type="tel" name="phone_number" placeholder="Phone" required value="{{current_user.phone}}" disabled>
                            <!-- radio labels -->
+                           <div class="my-3">
                            <div class="form-check form-check-inline">
                                <input class="form-check-input" type="radio" name="price" id="rate" value="rate" checked>
                                <label class="form-check-label" for="rate">Rate</label>
@@ -28,6 +29,7 @@
                                <input class="form-check-input" type="radio" name="price" id="contact_price" value="contact_price">
                                <label class="form-check-label" for="contact_price">Contact for price</label>
                            </div>
+                        </div>
                            <input class="form-control shadow-none border" id="rate_input" type="number" name="rate" placeholder="Rate" required>
                         </div>
 
@@ -100,18 +102,21 @@ html, body {
             if (contactPriceRadio.checked) {
                 rateInput.value = ''; // Clear the input field
                 rateInput.disabled = true;
+                rateInput.removeAttribute('required'); // Remove 'required' attribute
             } else {
                 rateInput.disabled = false;
+                rateInput.setAttribute('required', true); // Set 'required' attribute
             }
         }
 
         rateRadio.addEventListener('change', handleRadioChange);
         contactPriceRadio.addEventListener('change', handleRadioChange);
 
-        // Initialize disabled state based on initial radio button checked state
+        // Initialize disabled state and 'required' attribute based on initial radio button checked state
         handleRadioChange();
     });
 </script>
+
 
 
 
