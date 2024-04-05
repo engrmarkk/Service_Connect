@@ -28,10 +28,11 @@
                                <input class="form-check-input" type="radio" name="price" id="contact_price" value="contact_price">
                                <label class="form-check-label" for="contact_price">Contact for price</label>
                            </div>
+                           <input class="form-control shadow-none border" id="rate_input" type="number" name="rate" placeholder="Rate" required>
                         </div>
 
                         <div class="form-button mt-3">
-                            <button class="btn btn-primary p-2 fw-normal" id="login_btn" type="submit" disabled>
+                            <button class="btn btn-primary p-2 fw-normal" id="login_btn" type="submit">
                                 Complete
                             </button>
                         </div>
@@ -90,60 +91,29 @@ html, body {
 </style>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const rateInput = document.getElementById('rate_input');
+        const rateRadio = document.getElementById('rate');
+        const contactPriceRadio = document.getElementById('contact_price');
 
-    var email = document.getElementById('email_input');
-    var password = document.getElementById('password_input');
-
-    var pp = document.getElementById('pp');
-    var photo_input = document.getElementById('photo_input');
-
-    var login_btn = document.getElementById('login_btn');
-
-    updateLoginButton();
-
-    // Add event listeners for input fields
-    email.addEventListener('input', updateLoginButton);
-    password.addEventListener('input', updateLoginButton);
-
-    console.log(password.value.trim().length, "length")
-
-    function updateLoginButton() {
-        // Enable/disable login button based on input length
-        if (password.value.trim().length >= 4) {
-            login_btn.removeAttribute('disabled');
-        } else {
-            login_btn.setAttribute('disabled', 'disabled');
-        }
-    }
-
-    login_btn.addEventListener('click', function () {
-        // Replace button text with spinner when clicked
-        if (!login_btn.hasAttribute('disabled')) {
-            login_btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-            login_btn.classList.add('px-3');
-            // disabled the btn
-            setTimeout(function () {
-                login_btn.setAttribute('disabled', 'disabled');
-            }, 100)
-        }
-    });
-
-    pp.addEventListener('click', function () {
-        photo_input.click();
-    })
-
-    photo_input.addEventListener('change', function () {
-        if (photo_input.files && photo_input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                pp.setAttribute('src', e.target.result);
+        function handleRadioChange() {
+            if (contactPriceRadio.checked) {
+                rateInput.value = ''; // Clear the input field
+                rateInput.disabled = true;
+            } else {
+                rateInput.disabled = false;
             }
-            reader.readAsDataURL(photo_input.files[0]);
         }
-    })
 
+        rateRadio.addEventListener('change', handleRadioChange);
+        contactPriceRadio.addEventListener('change', handleRadioChange);
 
+        // Initialize disabled state based on initial radio button checked state
+        handleRadioChange();
+    });
 </script>
+
+
 
 
 {% endblock content %}
