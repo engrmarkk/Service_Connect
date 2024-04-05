@@ -28,7 +28,7 @@ def update_profile():
         work_pic3 = request.form.get("work_pic3")
         service_offered = request.form.get("service_offered")
         user = current_user.id
-
+        print(rate, "rate")
         if not company:
             alert = "Please enter your company name"
             bg_color = "danger"
@@ -47,15 +47,15 @@ def update_profile():
                                    rate=rate, work_pic1=work_pic1,
                                    work_pic2=work_pic2, work_pic3=work_pic3,
                                    service_offered=service_offered)
-        if not rate:
-            alert = "Please enter your rate"
-            bg_color = "danger"
-            return render_template("worker/update_profile.html",
-                                   alert=alert, bg_color=bg_color,
-                                   company=company, description=description,
-                                   rate=rate, work_pic1=work_pic1,
-                                   work_pic2=work_pic2, work_pic3=work_pic3,
-                                   service_offered=service_offered)
+        # if not rate:
+        #     alert = "Please enter your rate"
+        #     bg_color = "danger"
+        #     return render_template("worker/update_profile.html",
+        #                            alert=alert, bg_color=bg_color,
+        #                            company=company, description=description,
+        #                            rate=rate, work_pic1=work_pic1,
+        #                            work_pic2=work_pic2, work_pic3=work_pic3,
+        #                            service_offered=service_offered)
         if not service_offered:
             alert = "Please enter your service offered"
             bg_color = "danger"
