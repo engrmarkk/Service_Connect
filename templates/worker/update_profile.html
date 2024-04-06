@@ -35,6 +35,15 @@
                            <input class="form-control shadow-none border" id="work_pic1" type="file" name="work_pic1" placeholder="Work Picture">
                            <input class="form-control shadow-none border" id="work_pic2" type="file" name="work_pic2" placeholder="Work Picture">
                            <input class="form-control shadow-none border" id="work_pic3" type="file" name="work_pic3" placeholder="Work Picture">
+
+                           <div>
+                            <select name="service_offered" id="" class="form-control shadow-none border">
+                                <option value="" selected disabled>Choose services</option>
+                                {% for serve in servs %}
+                                    <option value="{{serve.id}}">{{serve.name}}</option>
+                                {% endfor %}
+                            </select>
+                           </div>
                         </div>
 
                         <div class="form-button mt-3">
