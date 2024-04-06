@@ -17,6 +17,10 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        if current_user.is_worker and not current_user.worker_profile:
+            return redirect(url_for("worker.update_profile"))
+        return redirect(url_for("user.home"))
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
 
