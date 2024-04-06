@@ -56,6 +56,13 @@ def create_app():
     def page_not_found(e):
         return render_template('404.html'), 404
 
+    # handler for unauthorized
+    @app.errorhandler(401)
+    def unauthorized(e):
+        session["alert"] = "Login to access this page"
+        session["bg_color"] = "danger"
+        return redirect(url_for("auth.login"))
+
     @app.before_request
     def before_request():
         session.permanent = True
