@@ -126,6 +126,16 @@
             </li>
             {% endif %}
 
+            {% if current_user.is_authenticated %}
+            <li class="nav-item _box px-2 {%if login%} bg-primary {%endif%}">
+              <a href="{{url_for('auth.logout')}}" class="nav-link  {%if login%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
+                <!-- <button  type="button" class="btn" > -->
+                LOGOUT
+            <!-- </button> -->
+            </a>
+            </li>
+            {% endif %}
+
             </ul>
         </div>
       </div>
