@@ -243,3 +243,15 @@ def resend_otp(email):
         session["alert"] = "failed to verify email"
         session["bg_color"] = "danger"
     return redirect(url_for("auth.verify_otp", email=email))
+
+
+@auth.route("/logout")
+@login_required
+def logout():
+    if not current_user.is_authenticated:
+        return redirect(url_for("auth.login"))
+    logout_user()
+    session["alert"] = "Logout successful"
+    session["bg_color"] = "success"
+    return redirect(url_for("user.home"))
+#<i class="fa-solid fa-image"></i>
