@@ -38,9 +38,9 @@
 
                            <label for="" class="mt-4 text-muted badge">Upload your work images</label>
                            <div class="d-flex gap-3">
-                            <i class="fa-solid fa-image text-muted" id="work_img1" style="font-size: 5rem;"></i>
-                            <i class="fa-solid fa-image text-muted" id="work_img2" style="font-size: 5rem;"></i>
-                            <i class="fa-solid fa-image text-muted" id="work_img3" style="font-size: 5rem;"></i>
+                            <img src="../../static/images/placeholder.avif" id="work_img1" style="width: 5rem; cursor: pointer;" alt="">
+                            <img src="../../static/images/placeholder.avif" id="work_img2" style="width: 5rem; cursor: pointer;" alt="">
+                            <img src="../../static/images/placeholder.avif" id="work_img3" style="width: 5rem; cursor: pointer;" alt="">
                            </div>
 
                            <div>
@@ -117,6 +117,14 @@ html, body {
 </style>
 
 <script>
+    work_pic1 = document.getElementById('work_pic1');
+    work_pic2 = document.getElementById('work_pic2');
+    work_pic3 = document.getElementById('work_pic3');
+
+    work_img1 = document.getElementById('work_img1');
+    work_img2 = document.getElementById('work_img2');
+    work_img3 = document.getElementById('work_img3');
+
     document.addEventListener('DOMContentLoaded', function () {
         const rateInput = document.getElementById('rate_input');
         const rateRadio = document.getElementById('rate');
@@ -140,25 +148,31 @@ html, body {
         handleRadioChange();
     });
 
-    work_pic1 = document.getElementById('work_pic1');
-    work_pic2 = document.getElementById('work_pic2');
-    work_pic3 = document.getElementById('work_pic3');
-
-    work_img1 = document.getElementById('work_img1');
-    work_img2 = document.getElementById('work_img2');
-    work_img3 = document.getElementById('work_img3');
-
-    work_pic1.addEventListener('change', function() {
-        work_img1.src = URL.createObjectURL(this.files[0]);
+    work_img1.addEventListener('click', function() {
+        work_pic1.click();
     });
 
-    work_pic2.addEventListener('change', function() {
-        work_img2.src = URL.createObjectURL(this.files[0]);
+    work_img2.addEventListener('click', function() {
+        work_pic2.click();
     });
 
-    work_pic3.addEventListener('change', function() {
-        work_img3.src = URL.createObjectURL(this.files[0]);
+    work_img3.addEventListener('click', function() {
+        work_pic3.click();
     });
+
+    const handleImagePreview = (inputElement, imgElement) => {
+    inputElement.addEventListener('change', () => {
+        if (inputElement.files && inputElement.files[0]) {
+            imgElement.src = URL.createObjectURL(inputElement.files[0]);
+        }
+    });
+};
+
+
+    handleImagePreview(work_pic1, work_img1);
+    handleImagePreview(work_pic2, work_img2);
+    handleImagePreview(work_pic3, work_img3);
+
 </script>
 
 
