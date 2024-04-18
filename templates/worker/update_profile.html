@@ -139,6 +139,26 @@ html, body {
         // Initialize disabled state and 'required' attribute based on initial radio button checked state
         handleRadioChange();
     });
+
+    work_pic1 = document.getElementById('work_pic1');
+    work_pic2 = document.getElementById('work_pic2');
+    work_pic3 = document.getElementById('work_pic3');
+
+    work_img1 = document.getElementById('work_img1');
+    work_img2 = document.getElementById('work_img2');
+    work_img3 = document.getElementById('work_img3');
+
+    work_pic1.addEventListener('change', function() {
+        work_img1.src = URL.createObjectURL(this.files[0]);
+    });
+
+    work_pic2.addEventListener('change', function() {
+        work_img2.src = URL.createObjectURL(this.files[0]);
+    });
+
+    work_pic3.addEventListener('change', function() {
+        work_img3.src = URL.createObjectURL(this.files[0]);
+    });
 </script>
 
 
