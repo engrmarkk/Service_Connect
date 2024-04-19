@@ -11,7 +11,7 @@
                 <div class="form-items">
                     <h5 class="text-primary text-center mb-3">Complete registration</h5>
                     <!-- <p class="text-muted">Fill in the data below.</p> -->
-                    <form class="requires-validation" action="" method="post">
+                    <form class="requires-validation" action="" method="post" enctype="multipart/form-data">
 
                         <div class="col-md-12">
                             <img src="{{current_user.profile_picture}}" alt="{{current_user.username}}"
@@ -31,7 +31,9 @@
                            </div>
                         </div>
                            <input class="form-control shadow-none border" id="rate_input" type="number" name="rate" placeholder="Rate">
-                           <input class="form-control shadow-none border" id="company_name_input" type="text" name="company_name" placeholder="company Name">
+                           <input class="form-control shadow-none border" id="company_name_input" type="text" name="company" placeholder="company Name">
+                           <!-- descrption -->
+                           <textarea class="form-control shadow-none border mt-3" id="description_input" name="description" placeholder="Description" rows="3"></textarea>
                            <input class="form-control shadow-none border d-none" id="work_pic1" type="file" name="work_pic1" placeholder="Work Picture">
                            <input class="form-control shadow-none border d-none" id="work_pic2" type="file" name="work_pic2" placeholder="Work Picture">
                            <input class="form-control shadow-none border d-none" id="work_pic3" type="file" name="work_pic3" placeholder="Work Picture">
