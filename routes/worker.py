@@ -81,9 +81,19 @@ def update_profile():
               work_pic2, "work_pic3", work_pic3, "service_offered", service_offered,
               "user", user)
 
+        work_pics = [work_pic1, work_pic2, work_pic3]
+        cloudinary_img_urls = []
+
+        for res in work_pics:
+            result = cloudinary.uploader.upload(res, folder="service_connect", transformation=[
+                {"width": 176, "height": 176, "crop": "fill"}
+            ])
+            image_url = result["secure_url"]
+            cloudinary_img_urls.append(image_url)
+
         worker_profile = WorkerProfile(company=company, description=description,
-                                       rate=rate, work_pic1=work_pic1,
-                                       work_pic2=work_pic2, work_pic3=work_pic3,
+                                       rate=rate, work_pic1=cloudinary_img_urls[0],
+                                       work_pic2=cloudinary_img_urls[1], work_pic3=cloudinary_img_urls[2],
                                        service_offered=service_offered, user=user)
         db.session.add(worker_profile)
         try:
