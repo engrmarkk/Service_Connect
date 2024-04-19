@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import login_user, logout_user, logout_user, login_required, current_user
 from models import WorkerProfile, get_services
 from decorator import worker_required
+import cloudinary.uploader
+import cloudinary_config
+from extensions import mail, db
 
 worker = Blueprint("worker", __name__)
 
@@ -24,9 +27,9 @@ def update_profile():
         company = request.form.get("company")
         description = request.form.get("description")
         rate = request.form.get("rate")
-        work_pic1 = request.form.get("work_pic1")
-        work_pic2 = request.form.get("work_pic2")
-        work_pic3 = request.form.get("work_pic3")
+        work_pic1 = request.files.get("work_pic1")
+        work_pic2 = request.files.get("work_pic2")
+        work_pic3 = request.files.get("work_pic3")
         service_offered = request.form.get("service_offered")
         user = current_user.id
         print(rate, "rate")
@@ -48,15 +51,6 @@ def update_profile():
                                    rate=rate, work_pic1=work_pic1,
                                    work_pic2=work_pic2, work_pic3=work_pic3,
                                    service_offered=service_offered)
-        # if not rate:
-        #     alert = "Please enter your rate"
-        #     bg_color = "danger"
-        #     return render_template("worker/update_profile.html",
-        #                            alert=alert, bg_color=bg_color,
-        #                            company=company, description=description,
-        #                            rate=rate, work_pic1=work_pic1,
-        #                            work_pic2=work_pic2, work_pic3=work_pic3,
-        #                            service_offered=service_offered)
         if not service_offered:
             alert = "Please enter your service offered"
             bg_color = "danger"
@@ -66,7 +60,7 @@ def update_profile():
                                    rate=rate, work_pic1=work_pic1,
                                    work_pic2=work_pic2, work_pic3=work_pic3,
                                    service_offered=service_offered)
-        if not work_pic1 or not work_pic2 or not work_pic3:
+        if not work_pic1 and not work_pic2 and not work_pic3:
             alert = "Please enter your work pictures"
             bg_color = "danger"
             return render_template("worker/update_profile.html",
