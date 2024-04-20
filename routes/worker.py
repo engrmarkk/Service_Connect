@@ -13,7 +13,9 @@ worker = Blueprint("worker", __name__)
 @login_required
 @worker_required
 def home():
-    return render_template("worker/home.html")
+    alert = session.pop("alert", None)
+    bg_color = session.pop("bg_color", None)
+    return render_template("worker/home.html", home=True, alert=alert, bg_color=bg_color)
 
 
 @worker.route("/update_profile", methods=["GET", "POST"])
