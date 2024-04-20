@@ -7,6 +7,7 @@ from flask_login import login_user, logout_user, logout_user, login_required, cu
 from flask_mail import Message
 from extensions import mail, db
 import cloudinary
+from decorator import check_logged_in, check_not_logged_in
 import os
 import cloudinary.uploader
 import cloudinary_config
@@ -16,11 +17,8 @@ auth = Blueprint("auth", __name__)
 
 
 @auth.route("/login", methods=["GET", "POST"])
+@check_logged_in
 def login():
-    if current_user.is_authenticated:
-        if current_user.is_worker and not current_user.worker_profile:
-            return redirect(url_for("worker.update_profile"))
-        return redirect(url_for("user.home"))
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
 
@@ -75,6 +73,7 @@ def login():
 
 
 @auth.route("/register", methods=["GET", "POST"])
+@check_logged_in
 def register():
     if request.method == "POST":
         username = request.form.get("username")
@@ -172,7 +171,7 @@ def register():
 
 
 @auth.route("/verify-otp/<string:email>", methods=["GET", "POST"])
-# @login_required
+@check_logged_in
 def verify_otp(email):
     if current_user.is_authenticated:
         return redirect(url_for("user.home"))
@@ -213,6 +212,7 @@ def verify_otp(email):
 
 # resend otp
 @auth.route("/resend-otp/<string:email>", methods=["GET"])
+@check_logged_in
 def resend_otp(email):
     if current_user.is_authenticated:
         return redirect(url_for("user.home"))
@@ -246,6 +246,7 @@ def resend_otp(email):
 
 
 @auth.route("/logout")
+@check_not_logged_in
 @login_required
 def logout():
     if not current_user.is_authenticated:
@@ -254,4 +255,3 @@ def logout():
     session["alert"] = "Logout successful"
     session["bg_color"] = "success"
     return redirect(url_for("user.home"))
-#<i class="fa-solid fa-image"></i>
