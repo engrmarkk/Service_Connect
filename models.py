@@ -38,7 +38,7 @@ class Users(db.Model, UserMixin):
     date_added = db.Column(db.DateTime, nullable=False, default=db.func.now())
 
     # relationship
-    worker_profile = db.relationship("WorkerProfile", backref="users")
+    worker_profile = db.relationship("WorkerProfile", backref="users", lazy="joined")
 
 
 class WorkerProfile(db.Model, UserMixin):
