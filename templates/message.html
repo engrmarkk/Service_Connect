@@ -15,12 +15,12 @@
   
           <!-- <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5> -->
   
-          <div class="card" id="chats">
+          <div class="card" id="chats" style="height: 100vh; overflow-y: scroll;">
             <div class="card-body">
   
               <ul class="list-unstyled mb-0">
                 <li class="p-2 border-bottom" style="background-color: #eee;">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -36,7 +36,7 @@
                   </a>
                 </li>
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -51,7 +51,7 @@
                   </a>
                 </li>
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -66,7 +66,7 @@
                   </a>
                 </li>
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-3.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -81,7 +81,7 @@
                   </a>
                 </li>
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-4.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -96,7 +96,7 @@
                   </a>
                 </li>
                 <li class="p-2 border-bottom">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -111,7 +111,7 @@
                   </a>
                 </li>
                 <li class="p-2">
-                  <a href="#!" class="d-flex justify-content-between">
+                  <a href="#!" class="d-flex justify-content-between text-decoration-none">
                     <div class="d-flex flex-row">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
                         class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -222,6 +222,20 @@
 
     #textAreaExample2 {
         box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    }
+
+    #chast, #messages {
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* Internet Explorer 10+ */
+    }
+
+    #chats::-webkit-scrollbar, #messages::-webkit-scrollbar {
+        width: 0px;
+        /* remove scrollbar space */
+        background: transparent;
+        /* optional: just make scrollbar invisible */
     }
   </style>
 
