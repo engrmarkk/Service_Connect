@@ -102,9 +102,8 @@
                   <p class="text-white mb-0">{% if current_user.worker_profile[0].rate %}{{current_user.worker_profile[0].rate}}{% else %}Contact for price{% endif %}</p>
                 </div>
               </div>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark fw-normal">
-                <a href="" class="text-white text-decoration-none">Edit Profile</a>
-                <span class="visually-hidden">Edit Profile</span>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark fw-normal" style="cursor: pointer;">
+                <a class="text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit Profile</a>
             </span>
             </div>
           </div>
@@ -180,4 +179,24 @@
       </div>
     </div>
   </section>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     {% endblock %}
