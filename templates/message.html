@@ -15,7 +15,7 @@
   
           <!-- <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5> -->
   
-          <div class="card" id="chats" style="height: 100vh; overflow-y: scroll;">
+          <div class="card bg-dark" id="chats" style="height: 100vh; overflow-y: scroll;">
             <div class="card-body">
   
               <ul class="list-unstyled mb-0">
@@ -133,8 +133,8 @@
   
         </div>
   
-        <div class="col-md-6 col-lg-7 col-xl-8 card py-3" style="height: 100vh;"  id="message-cover">
-            <div style="height: 80vh; overflow-y: scroll;" id="messages">
+        <div class="col-md-6 col-lg-7 col-xl-8 card py-3 bg-secondary" style="height: 100vh;"  id="message-cover">
+            <div style="height: 80vh; overflow-y: scroll;" id="messages" class="bg-dark">
   
           <ul class="list-unstyled">
             <li class="d-flex justify-content-between mb-4">
@@ -188,9 +188,9 @@
             </ul>
         </div>
 
-            <div class="bg-white py-3">
+            <div class="bg-secondary py-3">
               <div data-mdb-input-init class="form-outline">
-                <textarea class="form-control" id="textAreaExample2" rows="4"></textarea>
+                <textarea class="form-control bg-dark text-white" id="textAreaExample2" rows="4"></textarea>
                 <!-- <label class="form-label" for="textAreaExample2">Message</label> -->
               </div>
             </div>
@@ -209,7 +209,8 @@
 
   <style>
     #messages {
-        box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+        /* box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; */
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
         padding: 10px 20px;
     }
 
@@ -221,7 +222,9 @@
     }
 
     #textAreaExample2 {
-        box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+        /* box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; */
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
     }
 
     #chast, #messages {
