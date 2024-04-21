@@ -19,12 +19,12 @@
               <p class="text-warning mb-2 fw-normal badge bg-dark">Basic User</p>
               <div class="d-flex justify-content-center mb-2">
                 <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary shadow-none">Subscribe</button>
-                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1 position-relative shadow-none">Messages
+                <a href="{{url_for('user.message')}}" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary ms-1 position-relative shadow-none text-decoration-none">Messages
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         9+
                         <span class="visually-hidden">unread messages</span>
                     </span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
