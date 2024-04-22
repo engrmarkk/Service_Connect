@@ -128,7 +128,7 @@
 
             {% if current_user.is_authenticated %}
             <li class="nav-item _box px-2 {%if login%} bg-primary {%endif%}">
-              <a href="{{url_for('auth.logout')}}" class="nav-link  {%if login%} text-white {%else%} hove text-white {%endif%}" id="navlinks">
+              <a class="nav-link  {%if login%} text-white {%else%} hove text-white {%endif%}" id="navlinks" data-bs-toggle="modal" data-bs-target="#exampleModall" style="cursor: pointer;">
                 <!-- <button  type="button" class="btn" > -->
                 LOGOUT
             <!-- </button> -->
@@ -168,6 +168,22 @@
     </div>
   </div>
 {% endif %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModall" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabell" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="modal-title text-center mb-2" id="exampleModalLabell" style="font-size: .8rem;">You want to logout?</h5>
+        <div class="d-flex justify-content-center">
+        <a href="{{url_for('auth.logout')}}" class="btn btn-danger text-decoration-none"><i class="fas fa-check text-white"></i></a>
+        <a class="btn btn-info mx-1 text-decoration-none" data-bs-dismiss="modal"><i class="fas fa-times text-white"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
     var myToast = new bootstrap.Toast(document.querySelector('.toast'));
