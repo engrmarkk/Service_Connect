@@ -20,7 +20,7 @@ def create_app():
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql db link here'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = "4f557e8e5eb51bfb7c42"
-    app.config['DEBUG'] = False
+    app.config["DEBUG"] = False
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 465
     app.config["MAIL_USERNAME"] = os.getenv("EMAIL_USER")
@@ -40,21 +40,13 @@ def create_app():
     @login_manager.user_loader
     def user_loader(id):
         return Users.query.get(id)
-        # return ""
-
-    # If the user isn't logged in and tries to access a login required route, this decorator allows the page to
-    # redirect page to the login
-    # @login_manager.unauthorized_handler
-    # def unauthorized_handler():
-    #     flash("Login to access this page", category="info")
-    #     return redirect(url_for("auth.login"))
 
     with app.app_context():
         db.create_all()
 
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('404.html'), 404
+        return render_template("404.html"), 404
 
     # handler for unauthorized
     @app.errorhandler(401)
