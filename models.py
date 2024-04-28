@@ -10,7 +10,9 @@ def generate_hex():
 
 class Services(db.Model):
     __tablename__ = "services"
-    id = db.Column(db.String(120), primary_key=True, default=generate_hex, nullable=False)
+    id = db.Column(
+        db.String(120), primary_key=True, default=generate_hex, nullable=False
+    )
     name = db.Column(db.String(180), unique=True, nullable=False)
     description = db.Column(db.String(120), nullable=True)
     image_url = db.Column(db.Text, nullable=True)
@@ -22,7 +24,9 @@ class Services(db.Model):
 
 class Users(db.Model, UserMixin):
     __tablename__ = "users"
-    id = db.Column(db.String(120), primary_key=True, default=generate_hex, nullable=False)
+    id = db.Column(
+        db.String(120), primary_key=True, default=generate_hex, nullable=False
+    )
     username = db.Column(db.String(180), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
@@ -43,7 +47,9 @@ class Users(db.Model, UserMixin):
 
 class WorkerProfile(db.Model, UserMixin):
     __tablename__ = "worker_profile"
-    id = db.Column(db.String(120), primary_key=True, default=generate_hex, nullable=False)
+    id = db.Column(
+        db.String(120), primary_key=True, default=generate_hex, nullable=False
+    )
     company = db.Column(db.String(180), nullable=True)
     description = db.Column(db.String(120), nullable=True)
     rate = db.Column(db.Float, nullable=True)
@@ -55,13 +61,32 @@ class WorkerProfile(db.Model, UserMixin):
 
 
 services = [
-    "Plumber", "Automotive services", "Drivers", "Cleaning Services", "Electrician",
-    "Carpenter", "Painter", "Housekeeping",
-    "Mechanic", "Nanny", "Developer",
-    "Gardener", "Security Services", "Interior Designer", "Tutoring Services",
-    "Event Planning", "Fitness Trainer", "Photographer", "Catering Services",
-    "Legal Services", "Financial Advisor", "Graphic Designer", "Web Designer",
-    "Content Writer", "Social Media Management", "Marketing Consultant"
+    "Plumber",
+    "Automotive services",
+    "Drivers",
+    "Cleaning Services",
+    "Electrician",
+    "Carpenter",
+    "Painter",
+    "Housekeeping",
+    "Mechanic",
+    "Nanny",
+    "Developer",
+    "Gardener",
+    "Security Services",
+    "Interior Designer",
+    "Tutoring Services",
+    "Event Planning",
+    "Fitness Trainer",
+    "Photographer",
+    "Catering Services",
+    "Legal Services",
+    "Financial Advisor",
+    "Graphic Designer",
+    "Web Designer",
+    "Content Writer",
+    "Social Media Management",
+    "Marketing Consultant",
 ]
 
 
