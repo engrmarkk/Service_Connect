@@ -10,6 +10,7 @@ def worker_required(f):
             return f(*args, **kwargs)
         else:
             return abort(403)
+
     return decorated_function
 
 
@@ -20,6 +21,7 @@ def user_required(f):
             return f(*args, **kwargs)
         else:
             return abort(403)
+
     return decorated_function
 
 
@@ -33,6 +35,7 @@ def complete_profile(f):
             return f(*args, **kwargs)
         else:
             return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -43,6 +46,7 @@ def redirect_to_worker_profile(f):
         if current_user.is_authenticated and current_user.is_worker:
             return redirect(url_for("worker.home"))
         return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -55,6 +59,7 @@ def check_logged_in(f):
                 return redirect(url_for("worker.update_profile"))
             return redirect(url_for("user.home"))
         return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -65,4 +70,5 @@ def check_not_logged_in(f):
         if not current_user.is_authenticated:
             return redirect(url_for("user.home"))
         return f(*args, **kwargs)
+
     return decorated_function
