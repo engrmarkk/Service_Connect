@@ -16,7 +16,9 @@ def home():
     alert = session.pop("alert", None)
     bg_color = session.pop("bg_color", None)
     serv = get_services()
-    return render_template("home.html", home=True, services=serv, alert=alert, bg_color=bg_color)
+    return render_template(
+        "home.html", home=True, services=serv, alert=alert, bg_color=bg_color
+    )
 
 
 # message
