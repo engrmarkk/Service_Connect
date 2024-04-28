@@ -1,9 +1,20 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
-from helpers import (validate_input, check_username_exist,
-                     check_email_exist, create_user, return_user,
-                     generate_otp)
+from helpers import (
+    validate_input,
+    check_username_exist,
+    check_email_exist,
+    create_user,
+    return_user,
+    generate_otp,
+)
 from passlib.hash import pbkdf2_sha256 as sha256
-from flask_login import login_user, logout_user, logout_user, login_required, current_user
+from flask_login import (
+    login_user,
+    logout_user,
+    logout_user,
+    login_required,
+    current_user,
+)
 from flask_mail import Message
 from extensions import mail, db
 import cloudinary
@@ -29,12 +40,26 @@ def login():
         if not email:
             alert = "Please enter your email"
             bg_color = "danger"
-            return render_template("login.html", alert=alert, bg_color=bg_color, email=email, password=password, login=True)
+            return render_template(
+                "login.html",
+                alert=alert,
+                bg_color=bg_color,
+                email=email,
+                password=password,
+                login=True,
+            )
 
         if not password:
             alert = "Please enter your password"
             bg_color = "danger"
-            return render_template("login.html", alert=alert, bg_color=bg_color, email=email, password=password, login=True)
+            return render_template(
+                "login.html",
+                alert=alert,
+                bg_color=bg_color,
+                email=email,
+                password=password,
+                login=True,
+            )
 
         user = return_user(email)
         if user:
@@ -64,11 +89,25 @@ def login():
             else:
                 alert = "Incorrect password"
                 bg_color = "danger"
-                return render_template("login.html", alert=alert, bg_color=bg_color, email=email, password=password, login=True)
+                return render_template(
+                    "login.html",
+                    alert=alert,
+                    bg_color=bg_color,
+                    email=email,
+                    password=password,
+                    login=True,
+                )
         else:
             alert = "User does not exist"
             bg_color = "danger"
-            return render_template("login.html", alert=alert, bg_color=bg_color, email=email, password=password, login=True)
+            return render_template(
+                "login.html",
+                alert=alert,
+                bg_color=bg_color,
+                email=email,
+                password=password,
+                login=True,
+            )
     return render_template("login.html", alert=alert, bg_color=bg_color, login=True)
 
 
@@ -87,19 +126,53 @@ def register():
         local_government = request.form.get("local_government")
         user_type = request.form.get("user_type")
 
-        print("username: ", username, "email: ", email, "password: ", password, "profile_picture: ", profile_picture,
-              "phone: ", phone, "country: ", country, "state: ", state,
-              "local_government: ", local_government, "user_type: ", user_type)
+        print(
+            "username: ",
+            username,
+            "email: ",
+            email,
+            "password: ",
+            password,
+            "profile_picture: ",
+            profile_picture,
+            "phone: ",
+            phone,
+            "country: ",
+            country,
+            "state: ",
+            state,
+            "local_government: ",
+            local_government,
+            "user_type: ",
+            user_type,
+        )
 
-        alert = validate_input(username, email, password,
-                               profile_picture, phone, country,
-                               state, local_government, user_type)
+        alert = validate_input(
+            username,
+            email,
+            password,
+            profile_picture,
+            phone,
+            country,
+            state,
+            local_government,
+            user_type,
+        )
         if alert:
-            return render_template("register.html", alert=alert,
-                                   bg_color="danger", username=username,
-                                   email=email, password=password, pp=profile_picture,
-                                   phone=phone, country=country, state=state, local_government=local_government,
-                                   user_type=user_type)
+            return render_template(
+                "register.html",
+                alert=alert,
+                bg_color="danger",
+                username=username,
+                email=email,
+                password=password,
+                pp=profile_picture,
+                phone=phone,
+                country=country,
+                state=state,
+                local_government=local_government,
+                user_type=user_type,
+            )
 
         if user_type == "worker":
             is_worker = True
@@ -107,38 +180,76 @@ def register():
             is_worker = False
 
         if check_username_exist(username):
-            return render_template("register.html", alert="Username already exist",
-                                   bg_color="danger", username=username,
-                                   email=email, password=password, profile_picture=profile_picture,
-                                   phone=phone, country=country, state=state, local_government=local_government,
-                                   user_type=user_type)
+            return render_template(
+                "register.html",
+                alert="Username already exist",
+                bg_color="danger",
+                username=username,
+                email=email,
+                password=password,
+                profile_picture=profile_picture,
+                phone=phone,
+                country=country,
+                state=state,
+                local_government=local_government,
+                user_type=user_type,
+            )
 
         if check_email_exist(email):
-            return render_template("register.html", alert="Email already exist",
-                                   bg_color="danger", username=username,
-                                   email=email, password=password, profile_picture=profile_picture,
-                                   phone=phone, country=country, state=state, local_government=local_government,
-                                   user_type=user_type)
+            return render_template(
+                "register.html",
+                alert="Email already exist",
+                bg_color="danger",
+                username=username,
+                email=email,
+                password=password,
+                profile_picture=profile_picture,
+                phone=phone,
+                country=country,
+                state=state,
+                local_government=local_government,
+                user_type=user_type,
+            )
 
         if password != confirm_password:
-            return render_template("register.html", alert="Passwords do not match",
-                                   bg_color="danger", username=username,
-                                   email=email, password=password, pp=profile_picture,
-                                   phone=phone, country=country, state=state, local_government=local_government,
-                                   user_type=user_type)
+            return render_template(
+                "register.html",
+                alert="Passwords do not match",
+                bg_color="danger",
+                username=username,
+                email=email,
+                password=password,
+                pp=profile_picture,
+                phone=phone,
+                country=country,
+                state=state,
+                local_government=local_government,
+                user_type=user_type,
+            )
 
-        result = cloudinary.uploader.upload(profile_picture, folder="service_connect", transformation=[
-            {"width": 176, "height": 176, "crop": "fill"}
-        ])
+        result = cloudinary.uploader.upload(
+            profile_picture,
+            folder="service_connect",
+            transformation=[{"width": 176, "height": 176, "crop": "fill"}],
+        )
         image_url = result["secure_url"]
 
         hashed_password = sha256.hash(password)
 
         otp = generate_otp()
 
-        user = create_user(username, email, hashed_password, image_url,
-                           phone, country, state, local_government,
-                           is_worker, otp)
+        user = create_user(
+            username,
+            email,
+            hashed_password,
+            image_url,
+            phone,
+            country,
+            state,
+            local_government,
+            is_worker,
+            otp,
+        )
 
         if user:
             session["alert"] = "Pls Verify your email."
@@ -155,17 +266,24 @@ def register():
             except Exception as e:
                 print(e)
                 flash("failed to verify email", "danger")
-                return render_template(
-                    "register.html", date=datetime.utcnow()
-                )
+                return render_template("register.html", date=datetime.utcnow())
             print("Email sent")
             return redirect(url_for("auth.verify_otp", email=email))
         else:
-            return render_template("register.html", alert="Something went wrong",
-                                   bg_color="danger", username=username,
-                                   email=email, password=password, profile_picture=profile_picture,
-                                   phone=phone, country=country, state=state, local_government=local_government,
-                                   user_type=user_type)
+            return render_template(
+                "register.html",
+                alert="Something went wrong",
+                bg_color="danger",
+                username=username,
+                email=email,
+                password=password,
+                profile_picture=profile_picture,
+                phone=phone,
+                country=country,
+                state=state,
+                local_government=local_government,
+                user_type=user_type,
+            )
 
     return render_template("register.html")
 
@@ -192,11 +310,15 @@ def verify_otp(email):
         if not otp:
             alert = "Please enter OTP"
             bg_color = "danger"
-            return render_template("verify_otp.html", alert=alert, bg_color=bg_color, email=email)
+            return render_template(
+                "verify_otp.html", alert=alert, bg_color=bg_color, email=email
+            )
         if len(otp) != 6 or not otp.isdigit():
             alert = "Please enter a valid OTP"
             bg_color = "danger"
-            return render_template("verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email)
+            return render_template(
+                "verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email
+            )
         if otp == user.otp:
             session["alert"] = "Verification successful, login now"
             session["bg_color"] = "success"
@@ -206,8 +328,12 @@ def verify_otp(email):
         else:
             alert = "Incorrect OTP"
             bg_color = "danger"
-            return render_template("verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email)
-    return render_template("verify_otp.html", alert=alert, bg_color=bg_color, email=email)
+            return render_template(
+                "verify_otp.html", otp=otp, alert=alert, bg_color=bg_color, email=email
+            )
+    return render_template(
+        "verify_otp.html", alert=alert, bg_color=bg_color, email=email
+    )
 
 
 # resend otp
