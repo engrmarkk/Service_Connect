@@ -6,7 +6,17 @@ def generate_otp():
     return randint(100000, 999999)
 
 
-def validate_input(username, email, password, profile_picture, phone, country, state, local_government, user_type):
+def validate_input(
+    username,
+    email,
+    password,
+    profile_picture,
+    phone,
+    country,
+    state,
+    local_government,
+    user_type,
+):
     if not username:
         return "Please enter your username"
     if not email:
@@ -28,7 +38,18 @@ def validate_input(username, email, password, profile_picture, phone, country, s
     return None
 
 
-def create_user(username, email, password, profile_picture, phone, country, state, local_government, is_worker, otp):
+def create_user(
+    username,
+    email,
+    password,
+    profile_picture,
+    phone,
+    country,
+    state,
+    local_government,
+    is_worker,
+    otp,
+):
     user = Users(
         username=username.lower(),
         email=email.lower(),
@@ -39,7 +60,7 @@ def create_user(username, email, password, profile_picture, phone, country, stat
         state=state.lower(),
         local_government=local_government.lower(),
         is_worker=is_worker,
-        otp=otp
+        otp=otp,
     )
     db.session.add(user)
     try:
